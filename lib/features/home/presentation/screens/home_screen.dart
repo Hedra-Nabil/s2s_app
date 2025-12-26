@@ -20,41 +20,35 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   _buildWelcomeMessage(),
                   const SizedBox(height: 24),
-                  GestureDetector(
+                  _buildFeatureCard(
+                    context,
+                    icon: Icons.sign_language,
+                    title: 'sign_language_to_voice'.tr(),
+                    subtitle: 'sign_language_to_voice_desc'.tr(),
+                    color: Theme.of(context).colorScheme.primary,
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (_) => const SignToVoiceScreen())),
-                    child: _buildFeatureCard(
-                      context,
-                      icon: Icons.sign_language,
-                      title: 'sign_language_to_voice'.tr(),
-                      subtitle: 'sign_language_to_voice_desc'.tr(),
-                      color: Theme.of(context).colorScheme.primary,
-                      isPrimary: true,
-                    ),
+                    isPrimary: true,
                   ),
                   const SizedBox(height: 16),
-                  GestureDetector(
+                  _buildFeatureCard(
+                    context,
+                    icon: Icons.mic,
+                    title: 'voice_to_avatar'.tr(),
+                    subtitle: 'voice_to_avatar_desc'.tr(),
+                    color: Colors.grey.shade200,
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (_) => const VoiceToAvatarScreen())),
-                    child: _buildFeatureCard(
-                      context,
-                      icon: Icons.mic,
-                      title: 'voice_to_avatar'.tr(),
-                      subtitle: 'voice_to_avatar_desc'.tr(),
-                      color: Colors.grey.shade200,
-                    ),
                   ),
                   const SizedBox(height: 16),
-                  GestureDetector(
+                  _buildFeatureCard(
+                    context,
+                    icon: Icons.videocam,
+                    title: 'video_to_avatar'.tr(),
+                    subtitle: 'video_to_avatar_desc'.tr(),
+                    color: Colors.grey.shade200,
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (_) => const VideoToAvatarScreen())),
-                    child: _buildFeatureCard(
-                      context,
-                      icon: Icons.videocam,
-                      title: 'video_to_avatar'.tr(),
-                      subtitle: 'video_to_avatar_desc'.tr(),
-                      color: Colors.grey.shade200,
-                    ),
                   ),
                   const SizedBox(height: 24),
                   _buildQuickAccess(),
@@ -103,6 +97,7 @@ class HomeScreen extends StatelessWidget {
           ),
           IconButton(
             icon: const Icon(Icons.notifications),
+            tooltip: 'notifications'.tr(),
             onPressed: () {},
           ),
         ],
@@ -138,9 +133,9 @@ class HomeScreen extends StatelessWidget {
       required String title,
       required String subtitle,
       required Color color,
+      required VoidCallback onTap,
       bool isPrimary = false}) {
     return Container(
-      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: isPrimary ? color : Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
@@ -151,47 +146,58 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: isPrimary ? Colors.white24 : color,
-                  borderRadius: BorderRadius.circular(12),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(16),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: isPrimary ? Colors.white24 : color,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Icon(
+                        icon,
+                        color: isPrimary
+                            ? Colors.white
+                            : Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    const Icon(Icons.arrow_forward, color: Colors.grey),
+                  ],
                 ),
-                child: Icon(
-                  icon,
-                  color: isPrimary
-                      ? Colors.white
-                      : Theme.of(context).colorScheme.primary,
+                const SizedBox(height: 16),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: isPrimary ? Colors.white : null,
+                  ),
                 ),
-              ),
-              const Icon(Icons.arrow_forward, color: Colors.grey),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: isPrimary ? Colors.white : null,
+                const SizedBox(height: 8),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: isPrimary ? Colors.white70 : Colors.grey,
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: 14,
-              color: isPrimary ? Colors.white70 : Colors.grey,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
