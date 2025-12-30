@@ -45,23 +45,30 @@ class SignToVoiceScreen extends StatelessWidget {
           const SizedBox(height: 24),
           Column(
             children: [
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    border: Border.all(color: Colors.red, width: 4),
+              Semantics(
+                button: true,
+                label: 'Start recording',
+                hint: 'Double tap to begin capturing sign language',
+                child: Material(
+                  color: Colors.white,
+                  shape: const CircleBorder(
+                    side: BorderSide(color: Colors.red, width: 4),
                   ),
-                  child: Center(
-                    child: Container(
-                      width: 60,
-                      height: 60,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.red,
+                  clipBehavior: Clip.hardEdge,
+                  child: InkWell(
+                    onTap: () {},
+                    child: SizedBox(
+                      width: 80,
+                      height: 80,
+                      child: Center(
+                        child: Container(
+                          width: 60,
+                          height: 60,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.red,
+                          ),
+                        ),
                       ),
                     ),
                   ),
