@@ -1,0 +1,3 @@
+## 2024-01-04 - Accessible Custom Buttons in Flutter
+**Learning:** `GestureDetector` is invisible to screen readers by default. Wrapping it in `Semantics` is essential, but for visual feedback (ripples), replacing it with `Material` > `InkWell` is better UX. When testing `Semantics` widgets in Flutter widget tests, `find.bySemanticsLabel` can be tricky if the semantics are not fully aggregated or if checking a specific wrapping widget; using `find.byWidgetPredicate` to inspect `Semantics.properties.label` is a robust alternative.
+**Action:** Always wrap custom interactive elements in `Semantics` or use `InkWell` + `Semantics` combo. Verify with widget tests using predicate finders if standard semantic finders fail.
