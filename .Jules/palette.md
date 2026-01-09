@@ -1,0 +1,3 @@
+## 2024-05-23 - Custom Accessible Buttons in Flutter
+**Learning:** `find.bySemanticsLabel` can be flaky or non-obvious when testing custom composite widgets wrapped in `Semantics`. It often fails to find the `Semantics` widget if searched by label alone, possibly due to how SemanticsNodes are aggregated or exposed in the test finder.
+**Action:** When testing custom semantic widgets, prefer finding the widget by type (e.g., `find.byWidgetPredicate((w) => w is Semantics && w.properties.label == '...')`) or ensure `tester.pumpAndSettle()` is called. Also, verifying `SemanticsFlag.isButton` is crucial for accessibility.
