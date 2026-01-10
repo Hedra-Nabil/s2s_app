@@ -9,11 +9,13 @@ class SignToVoiceScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Sign to Voice'),
         leading: IconButton(
+          tooltip: 'Back',
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
           IconButton(
+            tooltip: 'More options',
             icon: const Icon(Icons.more_vert),
             onPressed: () {},
           ),
@@ -45,23 +47,30 @@ class SignToVoiceScreen extends StatelessWidget {
           const SizedBox(height: 24),
           Column(
             children: [
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    border: Border.all(color: Colors.red, width: 4),
+              Semantics(
+                button: true,
+                label: 'Start recording',
+                child: Material(
+                  // Move color and shape to Material so InkWell draws on top
+                  color: Colors.white,
+                  shape: const CircleBorder(
+                    side: BorderSide(color: Colors.red, width: 4),
                   ),
-                  child: Center(
+                  child: InkWell(
+                    onTap: () {},
+                    customBorder: const CircleBorder(),
                     child: Container(
-                      width: 60,
-                      height: 60,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.red,
+                      width: 80,
+                      height: 80,
+                      alignment: Alignment.center,
+                      // Container decoration removed to avoid hiding ink
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.red,
+                        ),
                       ),
                     ),
                   ),
@@ -96,6 +105,7 @@ class SignToVoiceScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 IconButton(
+                  tooltip: 'Copy transcript',
                   icon: const Icon(Icons.copy),
                   onPressed: () {},
                 ),
@@ -133,6 +143,7 @@ class SignToVoiceScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 IconButton(
+                  tooltip: 'Download audio',
                   icon: const Icon(Icons.download),
                   onPressed: () {},
                 ),
