@@ -1,0 +1,3 @@
+## 2024-05-23 - Accessibility in Custom Flutter Buttons
+**Learning:** Flutter's `InkWell` generates its own semantic node for tap actions, which can conflict with or fragment custom `Semantics` wrappers if not handled carefully. To create a cohesive accessible button from a complex widget tree (like a Card with text), wrap the interactive element (e.g., `InkWell`) in a `Semantics` widget with `container: true`. This forces the subtree to merge into a single semantic node, ensuring the custom label (e.g., "Record voice") overrides or merges with the child text, providing a clear, single tap target for screen readers.
+**Action:** Always use `Semantics(container: true, ...)` when wrapping complex interactive widgets to ensure a unified accessibility label.

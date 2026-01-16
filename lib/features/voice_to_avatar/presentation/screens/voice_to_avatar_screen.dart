@@ -10,11 +10,13 @@ class VoiceToAvatarScreen extends StatelessWidget {
         title: const Text('Voice to Avatar'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
+          tooltip: 'Back',
           onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert),
+            tooltip: 'More options',
             onPressed: () {},
           ),
         ],
@@ -63,34 +65,46 @@ class VoiceToAvatarScreen extends StatelessWidget {
   Widget _buildRecordButton() {
     return Card(
       color: const Color(0xFF1D77D6),
+      clipBehavior: Clip.hardEdge,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
+      child: Semantics(
+        button: true,
+        label: 'Record voice',
+        container: true,
+        child: InkWell(
+          onTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: ExcludeSemantics(
+              child: Column(
+                children: [
+                  Container(
+                    width: 80,
+                    height: 80,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                    child: const Icon(Icons.mic, color: Color(0xFF1D77D6),
+                        size: 48),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Tap to record your voice',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Speak clearly for best results',
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                ],
               ),
-              child: const Icon(Icons.mic, color: Color(0xFF1D77D6), size: 48),
             ),
-            const SizedBox(height: 16),
-            const Text(
-              'Tap to record your voice',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Speak clearly for best results',
-              style: TextStyle(color: Colors.white70),
-            ),
-          ],
+          ),
         ),
       ),
     );
