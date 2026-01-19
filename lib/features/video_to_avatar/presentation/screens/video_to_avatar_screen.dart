@@ -10,11 +10,13 @@ class VideoToAvatarScreen extends StatelessWidget {
         title: const Text('Video to Avatar'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
+          tooltip: 'Back',
           onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert),
+            tooltip: 'More options',
             onPressed: () {},
           ),
         ],
@@ -117,9 +119,12 @@ class VideoToAvatarScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  LinearProgressIndicator(
-                    value: 0.85,
-                    borderRadius: BorderRadius.circular(4),
+                  Semantics(
+                    label: 'Upload progress: 85%',
+                    child: LinearProgressIndicator(
+                      value: 0.85,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                   ),
                   const SizedBox(height: 8),
                   const Text(
@@ -131,6 +136,7 @@ class VideoToAvatarScreen extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(Icons.close),
+              tooltip: 'Cancel upload',
               onPressed: () {},
             ),
           ],
