@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:s2s_app/features/auth/presentation/screens/auth_screen.dart';
 
 class OnboardingScreen1 extends StatelessWidget {
   const OnboardingScreen1({super.key});
@@ -36,7 +37,12 @@ class OnboardingScreen1 extends StatelessWidget {
                     ],
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                            builder: (context) => const AuthScreen()),
+                      );
+                    },
                     child: Text(
                       'skip'.tr(),
                       style: const TextStyle(color: Color(0xFF1E73BE)),
