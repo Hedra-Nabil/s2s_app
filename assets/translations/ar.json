@@ -66,6 +66,7 @@
   "account": "الحساب",
   "privacy_security": "الخصوصية والأمان",
   "help_support": "المساعدة والدعم",
-  "log_out": "تسجيل الخروج"
+  "log_out": "تسجيل الخروج",
+  "step_of": "الخطوة {current} من {total}"
 }
 

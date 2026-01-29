@@ -8,7 +8,7 @@ class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
-  _OnboardingScreenState createState() => _OnboardingScreenState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
@@ -38,9 +38,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             right: 24,
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(2, (index) => buildDot(index, context)),
+                Semantics(
+                  label: 'step_of'.tr(namedArgs: {
+                    'current': (_currentPage + 1).toString(),
+                    'total': '2'
+                  }),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:
+                        List.generate(2, (index) => buildDot(index, context)),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
