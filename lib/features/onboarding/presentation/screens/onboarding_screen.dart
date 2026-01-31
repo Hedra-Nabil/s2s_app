@@ -15,6 +15,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
+  void _skipOnboarding() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const AuthScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +33,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 _currentPage = page;
               });
             },
-            children: const [
-              OnboardingScreen1(),
-              OnboardingScreen2(),
+            children: [
+              OnboardingScreen1(onSkip: _skipOnboarding),
+              OnboardingScreen2(onSkip: _skipOnboarding),
             ],
           ),
           Positioned(
@@ -51,9 +57,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         curve: Curves.ease,
                       );
                     } else {
-                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => const AuthScreen()),
-                      );
+                      _skipOnboarding();
                     }
                   },
                   style: ElevatedButton.styleFrom(
