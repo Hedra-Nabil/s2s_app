@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreen2 extends StatelessWidget {
-  const OnboardingScreen2({super.key});
+  final VoidCallback? onSkip;
+
+  const OnboardingScreen2({super.key, this.onSkip});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class OnboardingScreen2 extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: onSkip,
                   child: Text(
                     'skip'.tr(),
                     style: const TextStyle(color: Color(0xFF1E73BE)),
