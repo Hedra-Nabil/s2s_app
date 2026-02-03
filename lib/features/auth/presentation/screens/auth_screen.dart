@@ -135,17 +135,17 @@ class _AuthScreenState extends State<AuthScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _buildTextField(
+        _AuthTextField(
           label: 'email_address'.tr(),
           hint: 'email_hint'.tr(),
           icon: Icons.email_outlined,
         ),
         const SizedBox(height: 20),
-        _buildTextField(
+        _AuthTextField(
           label: 'password'.tr(),
           hint: 'password_hint'.tr(),
           icon: Icons.lock_outline,
-          obscureText: true,
+          isPassword: true,
         ),
         const SizedBox(height: 12),
         Align(
@@ -221,23 +221,23 @@ class _AuthScreenState extends State<AuthScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _buildTextField(
+        _AuthTextField(
           label: 'full_name'.tr(),
           hint: 'full_name_hint'.tr(),
           icon: Icons.person_outline,
         ),
         const SizedBox(height: 20),
-        _buildTextField(
+        _AuthTextField(
           label: 'email_address'.tr(),
           hint: 'email_hint'.tr(),
           icon: Icons.email_outlined,
         ),
         const SizedBox(height: 20),
-        _buildTextField(
+        _AuthTextField(
           label: 'password'.tr(),
           hint: 'create_password'.tr(),
           icon: Icons.lock_outline,
-          obscureText: true,
+          isPassword: true,
         ),
         const SizedBox(height: 32),
         Container(
@@ -292,56 +292,6 @@ class _AuthScreenState extends State<AuthScreen>
         ),
         const Spacer(),
         _buildSocialLogin(),
-      ],
-    );
-  }
-
-  Widget _buildTextField({
-    required String label,
-    required String hint,
-    required IconData icon,
-    bool obscureText = false,
-  }) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 14,
-            color: Colors.grey.shade700,
-          ),
-        ),
-        const SizedBox(height: 10),
-        TextField(
-          obscureText: obscureText,
-          style: const TextStyle(fontSize: 16),
-          decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: TextStyle(color: Colors.grey.shade400),
-            prefixIcon: Icon(icon, color: Colors.grey.shade500, size: 22),
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide(color: Colors.grey.shade200),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide(color: Colors.grey.shade200),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide(color: colorScheme.primary, width: 2),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 18,
-            ),
-          ),
-        ),
       ],
     );
   }
@@ -441,6 +391,93 @@ class _AuthScreenState extends State<AuthScreen>
               ),
             ),
           ],
+        ),
+      ],
+    );
+  }
+}
+
+class _AuthTextField extends StatefulWidget {
+  final String label;
+  final String hint;
+  final IconData icon;
+  final bool isPassword;
+
+  const _AuthTextField({
+    required this.label,
+    required this.hint,
+    required this.icon,
+    this.isPassword = false,
+  });
+
+  @override
+  State<_AuthTextField> createState() => _AuthTextFieldState();
+}
+
+class _AuthTextFieldState extends State<_AuthTextField> {
+  late bool _obscureText;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscureText = widget.isPassword;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.label,
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+            color: Colors.grey.shade700,
+          ),
+        ),
+        const SizedBox(height: 10),
+        TextField(
+          obscureText: _obscureText,
+          style: const TextStyle(fontSize: 16),
+          decoration: InputDecoration(
+            hintText: widget.hint,
+            hintStyle: TextStyle(color: Colors.grey.shade400),
+            prefixIcon: Icon(widget.icon, color: Colors.grey.shade500, size: 22),
+            suffixIcon: widget.isPassword
+                ? IconButton(
+                    tooltip: _obscureText ? 'show_password'.tr() : 'hide_password'.tr(),
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.grey.shade500,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  )
+                : null,
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: Colors.grey.shade200),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: Colors.grey.shade200),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: colorScheme.primary, width: 2),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 18,
+            ),
+          ),
         ),
       ],
     );
