@@ -66,6 +66,8 @@
   "account": "ACCOUNT",
   "privacy_security": "Privacy & Security",
   "help_support": "Help & Support",
-  "log_out": "Log Out"
+  "log_out": "Log Out",
+  "show_password": "Show password",
+  "hide_password": "Hide password"
 }
 
